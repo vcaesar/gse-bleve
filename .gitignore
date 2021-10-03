@@ -4,6 +4,7 @@
 .idea
 
 examples/examples
+examples/test.blv
 
 # Binaries for programs and plugins
 *.exe
