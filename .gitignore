@@ -1,3 +1,10 @@
+# Object files
+.DS_Store
+.vscode
+.idea
+
+examples/examples
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
