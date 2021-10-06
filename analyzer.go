@@ -28,4 +28,5 @@ func analyzerConstructor(config map[string]interface{}, cache *registry.Cache) (
 
 func init() {
 	registry.RegisterAnalyzer(TokenName, analyzerConstructor)
+	registry.RegisterAnalyzer(SeparateName, analyzerConstructor)
 }

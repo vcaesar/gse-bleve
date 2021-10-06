@@ -13,7 +13,8 @@ import (
 )
 
 const (
-	TokenName = "gse"
+	TokenName    = "gse"
+	SeparateName = "sep"
 )
 
 // GseCut gse cut token structure
@@ -24,14 +25,33 @@ type GseCut struct {
 	trim string
 }
 
+// Separator type separator tokenizer struct
+type Separator struct {
+	seg  *gse.Segmenter
+	sep  string
+	trim string
+}
+
+// NewSep create a separator tokenizer
+func NewSep(sep, trim string) (*Separator, error) {
+	var seg gse.Segmenter
+	seg.Dict = gse.NewDict()
+	seg.Init()
+	return &Separator{&seg, sep, trim}, nil
+}
+
 // NewGseCut create a gse cut tokenizer
-func NewGse(dicts, stop, opt, trim string) (*GseCut, error) {
+func NewGse(dicts, stop, opt, trim string, alpha bool) (*GseCut, error) {
 	var (
 		seg gse.Segmenter
 		err error
 	)
 
 	seg.SkipLog = true
+	if alpha {
+		seg.AlphaNum = true
+	}
+
 	if dicts == "" {
 		dicts = "zh"
 	}
@@ -56,16 +76,26 @@ func NewGse(dicts, stop, opt, trim string) (*GseCut, error) {
 
 // Trim trim the unused token string
 func (c *GseCut) Trim(s []string) []string {
-	if c.trim == "symbol" {
-		return c.seg.TrimSymbol(s)
+	return Trim(s, c.trim, c.seg)
+}
+
+// Trim trim the unused token string
+func (c *Separator) Trim(s []string) []string {
+	return Trim(s, c.trim, c.seg)
+}
+
+// Trim trim the unused token string
+func Trim(s []string, trim string, seg *gse.Segmenter) []string {
+	if trim == "symbol" {
+		return seg.TrimSymbol(s)
 	}
 
-	if c.trim == "punct" {
-		return c.seg.TrimPunct(s)
+	if trim == "punct" {
+		return seg.TrimPunct(s)
 	}
 
-	if c.trim == "trim" {
-		return c.seg.Trim(s)
+	if trim == "trim" {
+		return seg.Trim(s)
 	}
 
 	return s
@@ -126,6 +156,24 @@ func (c *GseCut) Tokenize(text []byte) analysis.TokenStream {
 	return result
 }
 
+// Tokenize cut the text to bleve token stream
+func (s *Separator) Tokenize(text []byte) analysis.TokenStream {
+	result := make(analysis.TokenStream, 0)
+	cuts := s.Trim(strings.Split(string(text), s.sep))
+	azs := s.seg.Analyze(cuts)
+	for _, az := range azs {
+		token := analysis.Token{
+			Term:     []byte(az.Text),
+			Start:    az.Start,
+			End:      az.End,
+			Position: az.Position,
+			Type:     analysis.Ideographic,
+		}
+		result = append(result, &token)
+	}
+	return result
+}
+
 func tokenizerConstructor(config map[string]interface{}, cache *registry.Cache) (analysis.Tokenizer, error) {
 	dicts, ok := config["dicts"].(string)
 	if !ok {
@@ -137,7 +185,7 @@ func tokenizerConstructor(config map[string]interface{}, cache *registry.Cache) 
 	}
 
 	opt, ok := config["opt"].(string)
-	if !ok {
+	if !ok || opt == "" {
 		opt = ""
 	}
 
@@ -146,9 +194,29 @@ func tokenizerConstructor(config map[string]interface{}, cache *registry.Cache) 
 		trim = ""
 	}
 
-	return NewGse(dicts, stop, opt, trim)
+	alpha, ok := config["alpha"].(bool)
+	if !ok {
+		alpha = false
+	}
+
+	return NewGse(dicts, stop, opt, trim, alpha)
+}
+
+func tokenizerConstructor2(config map[string]interface{}, cache *registry.Cache) (analysis.Tokenizer, error) {
+	sep, ok := config["sep"].(string)
+	if !ok {
+		sep = " "
+	}
+
+	trim, ok := config["trim"].(string)
+	if !ok {
+		trim = ""
+	}
+
+	return NewSep(sep, trim)
 }
 
 func init() {
 	registry.RegisterTokenizer(TokenName, tokenizerConstructor)
+	registry.RegisterTokenizer(SeparateName, tokenizerConstructor2)
 }
