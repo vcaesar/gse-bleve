@@ -25,7 +25,7 @@ import (
 func main() {
 	opt := gse.Option{
 		Index: "test.blv",
-		Dicts: "emend, zh", Stop: "",
+		Dicts: "embed, zh", Stop: "",
 		Opt: "search-hmm", Trim: "trim"}
 
 	index, err := gse.New(opt)

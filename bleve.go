@@ -56,16 +56,16 @@ func NewGse(dicts, stop, opt, trim string, alpha bool) (*GseCut, error) {
 		dicts = "zh"
 	}
 
-	if strings.Contains(dicts, "emend") {
-		dicts = strings.Replace(dicts, "emend, ", "", 1)
+	if strings.Contains(dicts, "embed") {
+		dicts = strings.Replace(dicts, "embed, ", "", 1)
 		err = seg.LoadDictEmbed(dicts)
 	} else {
 		err = seg.LoadDict(dicts)
 	}
 
 	if stop != "" {
-		if strings.Contains(stop, "emend") {
-			stop = strings.Replace(stop, "emend, ", "", 1)
+		if strings.Contains(stop, "embed") {
+			stop = strings.Replace(stop, "embed, ", "", 1)
 			seg.LoadStopEmbed(stop)
 		} else {
 			seg.LoadStop(stop)

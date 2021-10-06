@@ -5,6 +5,7 @@
 
 examples/examples
 examples/test.blv
+test.blv
 
 # Binaries for programs and plugins
 *.exe
