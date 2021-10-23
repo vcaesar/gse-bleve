@@ -3,8 +3,8 @@ module github.com/vcaesar/gse-bleve
 go 1.17
 
 require (
-	github.com/blevesearch/bleve/v2 v2.2.0
-	github.com/go-ego/gse v0.69.10
+	github.com/blevesearch/bleve/v2 v2.2.1
+	github.com/go-ego/gse v0.69.11
 	github.com/vcaesar/tt v0.20.0
 )
 
@@ -18,12 +18,12 @@ require (
 	github.com/blevesearch/segment v0.9.0 // indirect
 	github.com/blevesearch/snowballstem v0.9.0 // indirect
 	github.com/blevesearch/upsidedown_store_api v1.0.1 // indirect
-	github.com/blevesearch/vellum v1.0.6 // indirect
-	github.com/blevesearch/zapx/v11 v11.3.0 // indirect
-	github.com/blevesearch/zapx/v12 v12.3.0 // indirect
-	github.com/blevesearch/zapx/v13 v13.3.0 // indirect
-	github.com/blevesearch/zapx/v14 v14.3.0 // indirect
-	github.com/blevesearch/zapx/v15 v15.3.0 // indirect
+	github.com/blevesearch/vellum v1.0.7 // indirect
+	github.com/blevesearch/zapx/v11 v11.3.1 // indirect
+	github.com/blevesearch/zapx/v12 v12.3.1 // indirect
+	github.com/blevesearch/zapx/v13 v13.3.1 // indirect
+	github.com/blevesearch/zapx/v14 v14.3.1 // indirect
+	github.com/blevesearch/zapx/v15 v15.3.1 // indirect
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/mschoch/smat v0.2.0 // indirect

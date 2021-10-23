@@ -19,13 +19,13 @@ type Option struct {
 
 // NewMappingSep new separator mapping
 func NewMappingSep(sep string, trim ...string) (*mapping.IndexMappingImpl, error) {
-	mapping := bleve.NewIndexMapping()
+	mapping1 := bleve.NewIndexMapping()
 	trimOpt := ""
 	if len(trim) > 0 {
 		trimOpt = trim[0]
 	}
 
-	err := mapping.AddCustomTokenizer(SeparateName, map[string]interface{}{
+	err := mapping1.AddCustomTokenizer(SeparateName, map[string]interface{}{
 		"type": SeparateName,
 		"sep":  sep,
 		"trim": trimOpt,
@@ -34,7 +34,7 @@ func NewMappingSep(sep string, trim ...string) (*mapping.IndexMappingImpl, error
 		return nil, err
 	}
 
-	err = mapping.AddCustomAnalyzer(SeparateName, map[string]interface{}{
+	err = mapping1.AddCustomAnalyzer(SeparateName, map[string]interface{}{
 		"type":      SeparateName,
 		"tokenizer": SeparateName,
 	})
@@ -42,15 +42,15 @@ func NewMappingSep(sep string, trim ...string) (*mapping.IndexMappingImpl, error
 		return nil, err
 	}
 
-	mapping.DefaultAnalyzer = SeparateName
-	return mapping, nil
+	mapping1.DefaultAnalyzer = SeparateName
+	return mapping1, nil
 }
 
 // NewMapping new bleve index mapping
 func NewMapping(opt Option) (*mapping.IndexMappingImpl, error) {
-	mapping := bleve.NewIndexMapping()
+	mapping1 := bleve.NewIndexMapping()
 
-	err := mapping.AddCustomTokenizer(TokenName, map[string]interface{}{
+	err := mapping1.AddCustomTokenizer(TokenName, map[string]interface{}{
 		"type":  TokenName,
 		"dicts": opt.Dicts,
 		"stop":  opt.Stop,
@@ -63,7 +63,7 @@ func NewMapping(opt Option) (*mapping.IndexMappingImpl, error) {
 		return nil, err
 	}
 
-	err = mapping.AddCustomAnalyzer(TokenName, map[string]interface{}{
+	err = mapping1.AddCustomAnalyzer(TokenName, map[string]interface{}{
 		"type":      TokenName,
 		"tokenizer": TokenName,
 	})
@@ -72,36 +72,36 @@ func NewMapping(opt Option) (*mapping.IndexMappingImpl, error) {
 		return nil, err
 	}
 
-	mapping.DefaultAnalyzer = TokenName
-	return mapping, nil
+	mapping1.DefaultAnalyzer = TokenName
+	return mapping1, nil
 }
 
 // New new bleve index
 func New(opt Option) (bleve.Index, error) {
 	var (
-		mapping *mapping.IndexMappingImpl
-		err     error
+		mapping1 *mapping.IndexMappingImpl
+		err      error
 	)
 	if opt.Name == "sep" {
-		mapping, err = NewMappingSep(opt.Sep, opt.Trim)
+		mapping1, err = NewMappingSep(opt.Sep, opt.Trim)
 	} else {
-		mapping, err = NewMapping(opt)
+		mapping1, err = NewMapping(opt)
 	}
 	if err != nil {
 		return nil, err
 	}
 
-	return bleve.New(opt.Index, mapping)
+	return bleve.New(opt.Index, mapping1)
 }
 
 // NewMem new bleve index only memory
 func NewMem(opt Option) (bleve.Index, error) {
-	mapping, err := NewMapping(opt)
+	mapping1, err := NewMapping(opt)
 	if err != nil {
 		return nil, err
 	}
 
-	return bleve.NewMemOnly(mapping)
+	return bleve.NewMemOnly(mapping1)
 }
 
 // NewTextMap new text field mapping with gse

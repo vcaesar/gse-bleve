@@ -142,7 +142,7 @@ func (c *GseCut) Tokenize(text []byte) analysis.TokenStream {
 	result := make(analysis.TokenStream, 0)
 	cuts := c.Trim(c.Cut(string(text), c.opt))
 	// fmt.Println("cuts: ", cuts)
-	azs := c.seg.Analyze(cuts)
+	azs := c.seg.Analyze(cuts, true)
 	for _, az := range azs {
 		token := analysis.Token{
 			Term:     []byte(az.Text),
@@ -160,7 +160,7 @@ func (c *GseCut) Tokenize(text []byte) analysis.TokenStream {
 func (s *Separator) Tokenize(text []byte) analysis.TokenStream {
 	result := make(analysis.TokenStream, 0)
 	cuts := s.Trim(strings.Split(string(text), s.sep))
-	azs := s.seg.Analyze(cuts)
+	azs := s.seg.Analyze(cuts, true)
 	for _, az := range azs {
 		token := analysis.Token{
 			Term:     []byte(az.Text),
