@@ -25,12 +25,15 @@ import (
 func main() {
 	opt := gse.Option{
 		Index: "test.blv",
-		Dicts: "embed, zh", Stop: "",
-		Opt: "search-hmm", Trim: "trim"}
+		Dicts: "embed, zh", 
+		// Stop: "",
+		// Opt: "search-hmm", Trim: "trim",
+		}
 
 	index, err := gse.New(opt)
 	if err != nil {
 		fmt.Println("new mapping error is: ", err)
+		return
 	}
 
 	text := `他在命运的沉浮中随波逐流, 扮演着受害与加害者的双重角色`
