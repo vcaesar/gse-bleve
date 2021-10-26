@@ -12,9 +12,9 @@ func main() {
 	opt := gse.Option{
 		Index: "test.blv",
 		Dicts: "embed, zh",
-		// Stop: "",
-		Opt: "dag",
-		// Trim: "trim",
+		Stop:  "",
+		Opt:   "search-hmm",
+		Trim:  "trim",
 	}
 
 	index, err := gse.New(opt)

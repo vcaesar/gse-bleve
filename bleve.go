@@ -140,9 +140,10 @@ func (c *GseCut) Cut(text string, opt string) []string {
 // Tokenize cut the text to bleve token stream
 func (c *GseCut) Tokenize(text []byte) analysis.TokenStream {
 	result := make(analysis.TokenStream, 0)
-	cuts := c.Trim(c.Cut(string(text), c.opt))
+	t1 := string(text)
+	cuts := c.Trim(c.Cut(t1, c.opt))
 	// fmt.Println("cuts: ", cuts)
-	azs := c.seg.Analyze(cuts, true)
+	azs := c.seg.Analyze(cuts, t1)
 	for _, az := range azs {
 		token := analysis.Token{
 			Term:     []byte(az.Text),
@@ -159,8 +160,9 @@ func (c *GseCut) Tokenize(text []byte) analysis.TokenStream {
 // Tokenize cut the text to bleve token stream
 func (s *Separator) Tokenize(text []byte) analysis.TokenStream {
 	result := make(analysis.TokenStream, 0)
-	cuts := s.Trim(strings.Split(string(text), s.sep))
-	azs := s.seg.Analyze(cuts, true)
+	t1 := string(text)
+	cuts := s.Trim(strings.Split(t1, s.sep))
+	azs := s.seg.Analyze(cuts, t1)
 	for _, az := range azs {
 		token := analysis.Token{
 			Term:     []byte(az.Text),
