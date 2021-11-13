@@ -3,14 +3,14 @@ module github.com/vcaesar/gse-bleve
 go 1.17
 
 require (
-	github.com/blevesearch/bleve/v2 v2.2.1
-	github.com/go-ego/gse v0.69.13
+	github.com/blevesearch/bleve/v2 v2.2.2
+	github.com/go-ego/gse v0.69.15
 	github.com/vcaesar/tt v0.20.0
 )
 
 require (
 	github.com/RoaringBitmap/roaring v0.9.4 // indirect
-	github.com/bits-and-blooms/bitset v1.2.0 // indirect
+	github.com/bits-and-blooms/bitset v1.2.1 // indirect
 	github.com/blevesearch/bleve_index_api v1.0.1 // indirect
 	github.com/blevesearch/go-porterstemmer v1.0.3 // indirect
 	github.com/blevesearch/mmap-go v1.0.3 // indirect
@@ -24,11 +24,12 @@ require (
 	github.com/blevesearch/zapx/v13 v13.3.1 // indirect
 	github.com/blevesearch/zapx/v14 v14.3.1 // indirect
 	github.com/blevesearch/zapx/v15 v15.3.1 // indirect
-	github.com/golang/protobuf v1.3.2 // indirect
-	github.com/golang/snappy v0.0.1 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/mschoch/smat v0.2.0 // indirect
 	github.com/steveyen/gtreap v0.1.0 // indirect
-	github.com/vcaesar/cedar v0.10.1 // indirect
-	go.etcd.io/bbolt v1.3.5 // indirect
-	golang.org/x/sys v0.0.0-20200323222414-85ca7c5b95cd // indirect
+	github.com/vcaesar/cedar v0.20.0 // indirect
+	go.etcd.io/bbolt v1.3.6 // indirect
+	golang.org/x/sys v0.0.0-20211113001501-0c823b97ae02 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
 )
