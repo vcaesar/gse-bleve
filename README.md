@@ -25,7 +25,8 @@ import (
 func main() {
 	opt := gse.Option{
 		Index: "test.blv",
-		Dicts: "embed, zh", 
+		Dicts: "embed, ja",
+		// Dicts: "embed, zh", 
 		Stop: "",
 		Opt: "search-hmm", 
 		Trim: "trim",
@@ -37,16 +38,16 @@ func main() {
 		return
 	}
 
-	text := `他在命运的沉浮中随波逐流, 扮演着受害与加害者的双重角色`
+	text := `見解では、謙虚なヴォードヴィリアンのベテランは、運命の犠牲者と悪役の両方の変遷として代償を払っています`
 	err = index.Index("1", text)
-	index.Index("3", text+"沉浮")
+	index.Index("3", text+"浮き沈み")
 	index.Index("4", `In view, a humble vaudevillian veteran cast vicariously as both victim and villain vicissitudes of fate.`)
 	index.Index("2", `It's difficult to understand the sum of a person's life.`)
 	if err != nil {
 		fmt.Println("index error: ", err)
 	}
 
-	query := "命运的沉浮"
+	query := "運命の犠牲者"
 	req := bleve.NewSearchRequest(bleve.NewQueryStringQuery(query))
 	req.Highlight = bleve.NewHighlight()
 	res, err := index.Search(req)

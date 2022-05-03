@@ -17,7 +17,7 @@ type data struct {
 	UpdateAt *time.Time
 }
 
-var text = "多伦多 the CN Tower, 多伦多悬崖公园"
+var text = "Seattle space needle, 多伦多 the CN Tower, 多伦多悬崖公园"
 
 func TestGse(t *testing.T) {
 	indexName := "test.blv"
@@ -25,6 +25,7 @@ func TestGse(t *testing.T) {
 
 	opt := Option{
 		Index: indexName,
+		// Dicts: "embed, ja",
 		Dicts: "embed, zh",
 		Opt:   "search-hmm",
 		Trim:  "trim",
@@ -62,13 +63,14 @@ func TestGse(t *testing.T) {
 		tt.Nil(t, err)
 	}
 
-	qry := "多伦多"
+	qry := "Seattle"
 	req := bleve.NewSearchRequest(bleve.NewQueryStringQuery(qry))
 	req.Size = 20
 	req.Highlight = bleve.NewHighlight()
 	res, err := index.Search(req)
 	tt.Nil(t, err)
 	tt.Equal(t, 11, res.Total)
+	fmt.Println("res: ", res)
 
 	tt.Equal(t, 11, res.Hits.Len())
 	tt.Equal(t, "map[]", res.Hits[0].Fragments)

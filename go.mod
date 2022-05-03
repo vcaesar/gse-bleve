@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/blevesearch/bleve/v2 v2.3.2
-	github.com/go-ego/gse v0.70.0
+	github.com/go-ego/gse v0.70.1
 	github.com/vcaesar/tt v0.20.0
 )
 
@@ -28,7 +28,7 @@ require (
 	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/golang/snappy v0.0.2-0.20190904063534-ff6b7dc882cf // indirect
 	github.com/mschoch/smat v0.2.0 // indirect
-	github.com/vcaesar/cedar v0.20.0 // indirect
+	github.com/vcaesar/cedar v0.20.1 // indirect
 	go.etcd.io/bbolt v1.3.5 // indirect
 	golang.org/x/sys v0.0.0-20220429121018-84afa8d3f7b3 // indirect
 )

@@ -5,38 +5,44 @@ import (
 	"os"
 
 	"github.com/blevesearch/bleve/v2"
-	gse "github.com/vcaesar/gse-bleve"
+	gseb "github.com/vcaesar/gse-bleve"
 )
 
 func main() {
-	opt := gse.Option{
+	opt := gseb.Option{
 		Index: "test.blv",
-		Dicts: "embed, zh",
+		// Dicts: "embed, zh",
+		Dicts: "embed, ja",
 		Stop:  "",
 		Opt:   "search-hmm",
 		Trim:  "trim",
 	}
 
-	index, err := gse.New(opt)
+	index, err := gseb.New(opt)
 	if err != nil {
 		fmt.Println("new mapping error is: ", err)
 		return
 	}
 
-	text := `他在命运的沉浮中随波逐流, 扮演着受害与加害者的双重角色`
+	text := `見解では、謙虚なヴォードヴィリアンのベテランは、運命の犠牲者と悪役の両方の変遷として代償を払っています`
 	err = index.Index("1", text)
-	index.Index("3", text+"沉浮")
+
+	index.Index("13", "間違っていたのは俺じゃない、世界の方だ")
+	index.Index("3", text+"浮き沈み")
+	index.Index("10", text+"両方の変遷")
 	index.Index("4", `In view, a humble vaudevillian veteran cast vicariously as both victim and villain vicissitudes of fate.`)
 	index.Index("2", `It's difficult to understand the sum of a person's life.`)
 	if err != nil {
 		fmt.Println("index error: ", err)
 	}
 
-	query := "命运的沉浮"
+	query := "運命の犠牲者"
 	req := bleve.NewSearchRequest(bleve.NewQueryStringQuery(query))
+
 	req.Highlight = bleve.NewHighlight()
+	req.Size = 20
 	res, err := index.Search(req)
-	fmt.Println(res, err)
+	fmt.Println("res: ", res, err, res.Hits)
 
 	os.RemoveAll("test.blv")
 }
