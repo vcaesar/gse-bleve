@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/blevesearch/bleve/v2 v2.3.2
-	github.com/go-ego/gse v0.70.1
+	github.com/go-ego/gse v0.70.2
 	github.com/vcaesar/tt v0.20.0
 )
 
