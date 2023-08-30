@@ -11,7 +11,7 @@ import (
 	"github.com/blevesearch/bleve/v2/registry"
 )
 
-func analyzerConstructor(config map[string]interface{}, cache *registry.Cache) (*analysis.Analyzer, error) {
+func NewAnalyzer(config map[string]interface{}, cache *registry.Cache) (analysis.Analyzer, error) {
 	tokenizerName, ok := config["tokenizer"].(string)
 	if !ok {
 		return nil, errors.New("must have tokenizer")
@@ -22,11 +22,11 @@ func analyzerConstructor(config map[string]interface{}, cache *registry.Cache) (
 		return nil, err
 	}
 
-	az := &analysis.Analyzer{Tokenizer: tokenizer}
+	az := &analysis.DefaultAnalyzer{Tokenizer: tokenizer}
 	return az, nil
 }
 
 func init() {
-	registry.RegisterAnalyzer(TokenName, analyzerConstructor)
-	registry.RegisterAnalyzer(SeparateName, analyzerConstructor)
+	registry.RegisterAnalyzer(TokenName, NewAnalyzer)
+	registry.RegisterAnalyzer(SeparateName, NewAnalyzer)
 }

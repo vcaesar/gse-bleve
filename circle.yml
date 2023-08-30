@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: golang:1.18.2
+      - image: golang:1.21.0
     working_directory: /gopath/src/github.com/vcaesar/gse-bleve
     steps:
       - checkout

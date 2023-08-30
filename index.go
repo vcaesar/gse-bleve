@@ -104,6 +104,11 @@ func NewMem(opt Option) (bleve.Index, error) {
 	return bleve.NewMemOnly(mapping1)
 }
 
+// NewDoc new bleve index document mapping
+func NewDoc() *mapping.DocumentMapping {
+	return bleve.NewDocumentMapping()
+}
+
 // NewTextMap new text field mapping with gse
 func NewTextMap() *mapping.FieldMapping {
 	return &mapping.FieldMapping{
